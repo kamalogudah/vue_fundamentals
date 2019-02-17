@@ -5,3 +5,8 @@
 .btn-cancel {
     background-color: #f44336;
 }
+
+.strikeout {
+    text-decoration: line-through;
+    color: black;
+}

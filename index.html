@@ -27,7 +27,7 @@
         <!-- <a v-bind:href="newItem" target="_blank"> Dynamic Link</a> -->
 
         <ul>
-            <li v-for="item in items"> {{ item }}</li>
+            <li v-for="item in items" :class="{strikeout: item.purchased} " @click="togglePurchased(item)"> {{ item.label }}</li>
         </ul>
         <p v-if="items.length == 0 ">Nice Job! You have bought all the item. </p>
     </div>
@@ -41,20 +41,33 @@
                 state: 'default',
                 header: 'Shopping List App!',
                 newItem: '',
-                items: [
-                    // '10 party hats',
-                    // '2 board games',
-                    // '20 cups'
+                items: [{
+                        label: '10 party hats',
+                        purchased: false,
+                    }, {
+                        label: '2 board games',
+                        purchased: true,
+                    }, {
+                        label: '20 cups',
+                        purchased: false,
+                    },
+
                 ]
             },
             methods: {
                 saveItem: function() {
-                    this.items.push(this.newItem);
+                    this.items.push({
+                        label: this.newItem,
+                        purchased: false,
+                    }, );
                     this.newItem = '';
                 },
                 changeState: function(newState) {
                     this.state = newState;
                     this.newItem = '';
+                },
+                togglePurchased: function(item) {
+                    item.purchased = !item.purchased
                 }
             }
 
