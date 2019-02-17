@@ -20,6 +20,7 @@
 
         <div v-if="state === 'edit'" class="add-item-form">
             <input type="text" v-model="newItem" placeholdert="Add an Item" @keyup.enter="saveItem">
+            <p> {{ characterCount }}/200</p>
             <button class="btn btn-primary" v:bind:disabled="newItem.length === 0" @click="saveItem"> Save Item</button>
 
         </div>
@@ -27,7 +28,7 @@
         <!-- <a v-bind:href="newItem" target="_blank"> Dynamic Link</a> -->
 
         <ul>
-            <li v-for="item in items" :class="{strikeout: item.purchased} " @click="togglePurchased(item)"> {{ item.label }}</li>
+            <li v-for="item in reversedItems" :class="{strikeout: item.purchased} " @click="togglePurchased(item)"> {{ item.label }}</li>
         </ul>
         <p v-if="items.length == 0 ">Nice Job! You have bought all the item. </p>
     </div>
@@ -53,6 +54,16 @@
                     },
 
                 ]
+            },
+            computed: {
+                characterCount: function() {
+                    return this.newItem.length;
+
+                },
+                reversedItems: function() {
+                    return this.items.slice(0).reverse();
+
+                }
             },
             methods: {
                 saveItem: function() {
